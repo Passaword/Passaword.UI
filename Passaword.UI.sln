@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Passaword.UI", "Passaword.UI\Passaword.UI.csproj", "{6E095F75-A1F7-48C1-A776-83A545BF499A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E095F75-A1F7-48C1-A776-83A545BF499A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E095F75-A1F7-48C1-A776-83A545BF499A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E095F75-A1F7-48C1-A776-83A545BF499A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E095F75-A1F7-48C1-A776-83A545BF499A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D37D4306-949F-44D0-B268-71DD822EEA5D}
+	EndGlobalSection
+EndGlobal

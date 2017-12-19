@@ -1,0 +1,24 @@
+﻿body {
+    background: #fdfdfd;
+}
+
+.signoutDropdown {
+    min-width: 100%
+}
+
+.signoutDropdown a.mySecrets {
+    color: inherit;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    text-align: center;
+}
+
+    .signoutDropdown a.mySecrets:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+.signoutDropdown hr {
+    margin-top: 0;
+    border-color: #ddd;
+}

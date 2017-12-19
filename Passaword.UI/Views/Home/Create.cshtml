@@ -1,0 +1,46 @@
+﻿@using System.Security.Claims
+@model SecretInputModel
+@{
+    ViewData["Title"] = "Share a Secret";
+}
+
+<h1>Share a Secret</h1>
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Secret" class="control-label"></label>
+                <input asp-for="Secret" type="password" class="form-control" />
+                <span asp-validation-for="Secret"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Passphrase" class="control-label">Passphrase (optional)</label>
+                <input asp-for="Passphrase" class="form-control" />
+                <span asp-validation-for="Passphrase"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Expiry" class="control-label">Expiry</label>
+                <input asp-for="Expiry" class="form-control" />
+                <span asp-validation-for="Expiry"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/" class="btn btn-default">Cancel</a>
+    </div>
+</form>
+
+@section scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}
