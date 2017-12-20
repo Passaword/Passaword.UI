@@ -75,13 +75,16 @@ namespace Passaword.UI.Controllers
                 var email = User.FindFirstValue(ClaimTypes.Email);
 
                 string secretId = null;
-                using (var encryptContext = _secretContextService.CreateEncryptionContext())
+                using (var encryptContext = _secretContextService.CreateEncryptionContext(User))
                 {
                     encryptContext.Secret.CreatedBy = email;
                     encryptContext.Secret.CreatedByProvider = "Google";
                     encryptContext.InputData.Add(UserInputConstants.Secret, model.Secret);
                     if (!string.IsNullOrEmpty(model.Passphrase)) encryptContext.InputData.Add(UserInputConstants.Passphrase, model.Passphrase);
-                    encryptContext.InputData.Add(UserInputConstants.Expiry, model.Expiry.ToString(UserInputConstants.ExpiryDateFormat));
+                    if (!string.IsNullOrEmpty(model.Email)) encryptContext.InputData.Add(UserInputConstants.EmailAddress, model.Email);
+                    if (!model.SendEmail) encryptContext.InputData.Add(UserInputConstants.DoNotSendEmail, true);
+                    if (model.UserEmailMustMatch) encryptContext.InputData.Add(UserInputConstants.ForceAuthentication, true);
+                    encryptContext.InputData.Add(UserInputConstants.Expiry, model.Expiry);
                     encryptContext.SecretProperties.Add(new SecretProperty(SecretProperties.OwnerEmail) { Data = email });
 
                     secretId = await encryptContext.EncryptSecretAsync();
@@ -113,7 +116,7 @@ namespace Passaword.UI.Controllers
         [Route("~/secret")]
         public async Task<IActionResult> Secret(string k)
         {
-            using (var decryptContext = _secretContextService.CreateDecryptionContext())
+            using (var decryptContext = _secretContextService.CreateDecryptionContext(User))
             {
                 try
                 {
@@ -145,7 +148,7 @@ namespace Passaword.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Secret(SecretRetrieveModel model)
         {
-            using (var decryptContext = _secretContextService.CreateDecryptionContext())
+            using (var decryptContext = _secretContextService.CreateDecryptionContext(User))
             {
                 decryptContext.InputData.Add(UserInputConstants.Passphrase, model.Passphrase);
 

@@ -18,22 +18,38 @@
     </div>
     
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Passphrase" class="control-label">Passphrase (optional)</label>
                 <input asp-for="Passphrase" class="form-control" />
                 <span asp-validation-for="Passphrase"></span>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Expiry" class="control-label">Expiry</label>
                 <input asp-for="Expiry" class="form-control" />
                 <span asp-validation-for="Expiry"></span>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Recipient email (optional)</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
     </div>
-
+    
+    <div class="form-group">
+        <label asp-for="SendEmail">
+            <input asp-for="SendEmail" /> Send email?
+        </label>
+        
+        <label asp-for="UserEmailMustMatch">
+            <input asp-for="UserEmailMustMatch" /> User email must match?
+        </label>
+    </div>
 
     <div class="form-group">
         <button type="submit" class="btn btn-success">Save</button>

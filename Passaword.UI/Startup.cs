@@ -36,6 +36,8 @@ namespace Passaword.UI
 
             services.AddPassaword()
                 .AddInMemorySecretStore()
+                .AddEmailMessaging()
+                .AddUserEmailValidation()
                 .AddExpiryValidation()
                 .AddPassphraseValidation();
 
@@ -56,8 +58,9 @@ namespace Passaword.UI
                     options.ClientId = Configuration["Passaword:Google:ClientId"];
                     options.ClientSecret = Configuration["Passaword:Google:ClientSecret"];
                     options.Scope.Add("email");
+                    options.SaveTokens = true;
                 });
-
+            
             services.AddMvc();
         }
 

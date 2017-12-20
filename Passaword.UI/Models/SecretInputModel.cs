@@ -15,5 +15,11 @@ namespace Passaword.UI.Models
 
         [Required]
         public DateTime Expiry { get; set; } = DateTime.Now.AddDays(7);
+
+        [EmailAddress]
+        public string Email { get; set; }
+
+        public bool SendEmail { get; set; }
+        public bool UserEmailMustMatch { get; set; }
     }
 }
