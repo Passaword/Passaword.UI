@@ -120,8 +120,8 @@ namespace Passaword.UI.Controllers
             {
                 try
                 {
-                    var isValid = await decryptContext.PreProcessAsync(k);
-                    if (isValid)
+                    var result = await decryptContext.PreProcessAsync(k);
+                    if (result.IsValid)
                     {
                         var model = new SecretRetrieveModel()
                         {
@@ -152,11 +152,14 @@ namespace Passaword.UI.Controllers
             {
                 decryptContext.InputData.Add(UserInputConstants.Passphrase, model.Passphrase);
 
-                var isValid = await decryptContext.PreProcessAsync(model.Id);
-                if (isValid)
+                var result = await decryptContext.PreProcessAsync(model.Id);
+                if (result.IsValid)
                 {
                     var decrypted = await decryptContext.DecryptSecretAsync(model.Id);
-
+                    if (decrypted == null)
+                    {
+                        return new BadRequestResult();
+                    }
                     return Json(decrypted);
                 }
                 else
