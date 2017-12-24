@@ -19,7 +19,9 @@ namespace Passaword.UI.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        public bool SendEmail { get; set; }
+        public string IpRegex { get; set; }
+
+        public bool SendEmail { get; set; } = true;
         public bool UserEmailMustMatch { get; set; }
     }
 }

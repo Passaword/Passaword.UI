@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Passaword.Configuration;
+using Passaword.Storage.Sql;
 
 namespace Passaword.UI
 {
@@ -35,11 +37,15 @@ namespace Passaword.UI
             }
 
             services.AddPassaword()
-                .AddInMemorySecretStore()
-                .AddEmailMessaging()
+                .AddSqlSecretStore()
+                .AddEmailMessaging(options =>
+                {
+                    options.SendOwnerEmailOnDecrypt = false;
+                })
                 .AddUserEmailValidation()
                 .AddExpiryValidation()
-                .AddPassphraseValidation();
+                .AddPassphraseValidation()
+                .AddUserIpValidation();
 
             services.AddAuthentication(options =>
                 {
@@ -62,6 +68,8 @@ namespace Passaword.UI
                 });
             
             services.AddMvc();
+
+            InitializeDatabase(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +93,7 @@ namespace Passaword.UI
                 app.UseRewriter(options);
             }
 
+            
             app.UseStaticFiles();
             app.UseAuthentication();
 
@@ -103,6 +112,15 @@ namespace Passaword.UI
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void InitializeDatabase(IServiceCollection services)
+        {
+            var sp = services.BuildServiceProvider();
+            using (var db = sp.GetService<PassawordDbContext>())
+            {
+                db.Database.Migrate();
+            }
         }
     }
 }

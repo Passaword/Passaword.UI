@@ -13,6 +13,7 @@ using Passaword.Constants;
 using Passaword.Storage;
 using Passaword.UI.Attributes;
 using Passaword.UI.Models;
+using Passaword.Utils;
 
 namespace Passaword.UI.Controllers
 {
@@ -80,8 +81,9 @@ namespace Passaword.UI.Controllers
                     encryptContext.Secret.CreatedBy = email;
                     encryptContext.Secret.CreatedByProvider = "Google";
                     encryptContext.InputData.Add(UserInputConstants.Secret, model.Secret);
-                    if (!string.IsNullOrEmpty(model.Passphrase)) encryptContext.InputData.Add(UserInputConstants.Passphrase, model.Passphrase);
+                    encryptContext.InputData.Add(UserInputConstants.Passphrase, model.Passphrase);
                     if (!string.IsNullOrEmpty(model.Email)) encryptContext.InputData.Add(UserInputConstants.EmailAddress, model.Email);
+                    if (!string.IsNullOrEmpty(model.IpRegex)) encryptContext.InputData.Add(UserInputConstants.IpRegex, model.IpRegex);
                     if (!model.SendEmail) encryptContext.InputData.Add(UserInputConstants.DoNotSendEmail, true);
                     if (model.UserEmailMustMatch) encryptContext.InputData.Add(UserInputConstants.ForceAuthentication, true);
                     encryptContext.InputData.Add(UserInputConstants.Expiry, model.Expiry);
@@ -146,11 +148,12 @@ namespace Passaword.UI.Controllers
         [Route("~/secret")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Secret(SecretRetrieveModel model)
+        public async Task<IActionResult> DecryptSecret(SecretRetrieveModel model)
         {
             using (var decryptContext = _secretContextService.CreateDecryptionContext(User))
             {
                 decryptContext.InputData.Add(UserInputConstants.Passphrase, model.Passphrase);
+                decryptContext.InputData.Add(UserInputConstants.IpAddress, Request.GetIpAddress());
 
                 var result = await decryptContext.PreProcessAsync(model.Id);
                 if (result.IsValid)
