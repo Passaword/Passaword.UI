@@ -47,6 +47,16 @@
             </div>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="CustomMessage" class="control-label">Custom Message (optional - don&apos;t give too much away)</label>
+                <textarea asp-for="CustomMessage" class="form-control"></textarea>
+                <span asp-validation-for="CustomMessage"></span>
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <label asp-for="SendEmail">

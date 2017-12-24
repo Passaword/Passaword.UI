@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
-    <PackageReference Include="Passaword" Version="1.0.26" />
+    <PackageReference Include="Passaword" Version="1.0.30" />
     <PackageReference Include="Passaword.Storage.Sql" Version="1.0.5" />
   </ItemGroup>
 

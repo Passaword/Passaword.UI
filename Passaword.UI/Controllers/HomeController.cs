@@ -82,6 +82,7 @@ namespace Passaword.UI.Controllers
                     encryptContext.Secret.CreatedByProvider = "Google";
                     encryptContext.InputData.Add(UserInputConstants.Secret, model.Secret);
                     encryptContext.InputData.Add(UserInputConstants.Passphrase, model.Passphrase);
+                    encryptContext.InputData.Add(UserInputConstants.CustomMessage, model.CustomMessage);
                     if (!string.IsNullOrEmpty(model.Email)) encryptContext.InputData.Add(UserInputConstants.EmailAddress, model.Email);
                     if (!string.IsNullOrEmpty(model.IpRegex)) encryptContext.InputData.Add(UserInputConstants.IpRegex, model.IpRegex);
                     if (!model.SendEmail) encryptContext.InputData.Add(UserInputConstants.DoNotSendEmail, true);
